@@ -1,18 +1,17 @@
 package com.ecommerce.product.product.repository;
 
+
 import com.ecommerce.product.product.model.Product;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import org.springframework.stereotype.Repository;
 
-@CrossOrigin("http://localhost:4200")
-public interface ProductRepository extends JpaRepository<Product, Long> {
+import java.util.List;
 
-    Page<Product> findByCategoryId(@RequestParam("id") Long id, Pageable pageable);
+@Repository
+public interface ProductRepository extends ElasticsearchRepository<Product, String> {
 
-    Page<Product> findByItemNameContaining(@RequestParam("name") String itemName, Pageable pageable);
+    List<Product> findAllByCategories(List<String> categories);
 
+    List<Product> findAllByCategoriesContaining(String category);
 
 }

@@ -4,3 +4,28 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${eurekaserver.port}/eureka/
+spring:
+  profiles:
+    active: local
+
+---
+
+spring:
+  profiles: local
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: products-events-listener-group
+
+---
+
+spring:
+  profiles: prod
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserealizer
+      group-id: library-events-listener-group
